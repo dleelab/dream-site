@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    main.js : the order of the night — threshold, night, waking, letter —
    and the loop that keeps it moving. */
 (function () {

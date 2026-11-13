@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    util.js : small math helpers. No dependencies. */
 (function () {
   'use strict';

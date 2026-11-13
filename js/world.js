@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    world.js : the place itself. A sea written in the word for sea, a sky of the
    word for star, a moon of the word for moon — and one light that is not a word. */
 (function () {

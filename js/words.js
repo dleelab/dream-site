@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    words.js : the lexicon. Every thing in the dream is built out of these names,
    and every sentence the dream says lives here. */
 (function () {

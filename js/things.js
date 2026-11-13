@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    things.js : what a word turns into. Part one: the shared craft (name pools,
    calligram filling, letters in flight), constellations, weather, birds, stars. */
 (function () {

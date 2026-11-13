@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    gl.js : the renderer. One fullscreen pass paints the sky and the dark water;
    one instanced pass draws every glyph. Nothing else is ever drawn. */
 (function () {

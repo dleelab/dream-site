@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    ui.js : the part of the page that is not the dream — the threshold, the place
    where a word is typed, the captions, and the letter left in the morning. */
 (function () {
@@ -246,11 +246,11 @@
     x.textAlign = 'left';
     const big = land ? 1 : 1.5;
     x.font = f(W * 0.027 * big);
-    x.fillText('말로 지은 밤', m, y);
-    const tw = x.measureText('말로 지은 밤').width;
+    x.fillText('글의 바다', m, y);
+    const tw = x.measureText('글의 바다').width;
     x.fillStyle = 'rgba(29,27,44,0.66)';
     x.font = f(W * 0.0145 * big, true);
-    if (land) x.fillText('a night made of words', m + tw + W * 0.018, y);
+    if (land) x.fillText('a sea of words', m + tw + W * 0.018, y);
     x.textAlign = 'right';
     x.font = f(W * 0.0145 * big);
     let date = '';
@@ -541,7 +541,7 @@
       if (saver && cardBlob) {
         // the viewer is shown a confirmation by the platform and may say no
         els.ltSave.disabled = true;
-        saver.save({ filename: 'a-night-made-of-words.jpg', data: cardBlob }).then(() => {
+        saver.save({ filename: 'a-sea-of-words.jpg', data: cardBlob }).then(() => {
           status('그림을 저장했어요', 'the picture was saved');
         }, (err) => {
           const code = err && err.code;
@@ -553,7 +553,7 @@
       }
       const a = document.createElement('a');
       a.href = cardURL;
-      a.download = 'a-night-made-of-words.jpg';
+      a.download = 'a-sea-of-words.jpg';
       document.body.appendChild(a);
       a.click();
       a.remove();

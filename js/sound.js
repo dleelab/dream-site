@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    sound.js : everything you hear is synthesised here, and nothing sounds until
    the visitor chooses it. There is no background sound: the night is quiet, and
    something is heard only when something happens. Each letter is a note, so every

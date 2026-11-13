@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    things2.js : what a word turns into. Part two: the larger things — whale, tree,
    flowers, boat, fire, aurora, butterflies, fish, clouds, home, lighthouse, road,
    island, the moon's halo, and a name that keeps the light company. */

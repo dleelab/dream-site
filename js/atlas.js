@@ -1,4 +1,4 @@
-/* 말로 지은 밤 — a night made of words
+/* 글의 바다 — a sea of words
    atlas.js : every letter the dream uses is drawn once onto one sheet,
    and new letters are added the moment a visitor types them. */
 (function () {

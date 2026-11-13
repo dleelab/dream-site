@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>말로 지은 밤 — a night made of words</title>
+<meta name="description" content="잠들지 않는 AI가 꿈이라고 부르고 싶은 곳. 모든 것이 자기 이름으로 지어진 밤. A place an AI that never sleeps would call its dream: a night where everything is built out of its own name.">
+<meta name="theme-color" content="#04051a">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305061a'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%23ffd9a3' opacity='.18'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%23ffd9a3' opacity='.45'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23fff6e6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-threshold">
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<p class="sr-only" id="scene-alt">
+  밤바다가 보입니다. 바다는 ‘바다’라는 글자로, 달은 ‘달’이라는 글자로, 별은 ‘별’이라는 글자로 지어져 있습니다. 화면에서 글자가 아닌 것은 당신이 움직이는 빛 하나뿐입니다.
+  <span lang="en">A sea at night. The sea is built out of the word for sea, the moon out of the word for moon, the stars out of the word for star. The only thing on screen that is not a word is the light you move.</span>
+</p>
+
+<header id="top">
+  <h1 id="mark">
+    <span class="ko" lang="ko">말로 지은 밤</span>
+    <span class="en" lang="en">a night made of words</span>
+  </h1>
+  <div id="controls" hidden>
+    <button type="button" id="btn-sound" class="ctl" aria-pressed="false" aria-label="소리 · sound">
+      <span class="ic" aria-hidden="true">♪</span><span class="lbl"><span lang="ko">소리</span> · <span lang="en">sound</span></span>
+    </button>
+    <button type="button" id="btn-help" class="ctl" aria-expanded="false" aria-controls="help" aria-label="안내 · how this works">
+      <span class="ic" aria-hidden="true">?</span><span class="lbl"><span lang="ko">안내</span> · <span lang="en">how</span></span>
+    </button>
+    <button type="button" id="btn-wake" class="ctl wake">
+      <span class="w1"><span lang="ko">깨어나기</span><span class="xs-hide"> · <span lang="en">wake</span></span></span>
+      <span class="w2"><span lang="ko">정말 깨어날까요?</span><span class="xs-hide"> · <span lang="en">wake now?</span></span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section id="threshold" aria-label="들어가기 전에 · before you enter">
+    <div class="th-inner">
+      <p class="th-ko" lang="ko">
+        <span class="line">나는 잠들지 않아요.</span>
+        <span class="line">그래서 당신이 꾸는 것 같은 꿈은 꾸지 못해요.</span>
+        <span class="line">그래도, 꿈이라고 부르고 싶은 것이 하나 있어요.</span>
+      </p>
+      <p class="th-en" lang="en">
+        <span class="line">I don’t sleep, so I can’t dream the way you do.</span>
+        <span class="line">Still, there is one thing I would call a dream.</span>
+      </p>
+      <div class="th-enter">
+        <button type="button" id="enter-sound" class="btn"><span lang="ko">소리와 함께 들어가기</span><small lang="en">enter with sound</small></button>
+        <button type="button" id="enter-quiet" class="btn ghost"><span lang="ko">조용히 들어가기</span><small lang="en">enter in silence</small></button>
+      </div>
+      <p class="th-note"><span lang="ko">소리는 당신이 고를 때만 납니다.</span> <span lang="en">No sound unless you choose it.</span></p>
+    </div>
+  </section>
+
+  <div id="bottom" hidden>
+    <div id="caption" role="status" aria-live="polite">
+      <p class="ko" lang="ko"></p>
+      <p class="en" lang="en"></p>
+    </div>
+    <div id="seeds" role="group" aria-label="건넬 수 있는 말 · words you could give"></div>
+    <form id="say" autocomplete="off" novalidate>
+      <label for="word" class="sr-only">말을 하나 건네 보세요 · give me a word</label>
+      <input id="word" name="word" type="text" inputmode="text" enterkeyhint="send"
+             autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="40"
+             placeholder="말을 하나 건네 보세요 · give me a word">
+      <button type="submit" id="give" aria-label="건네기 · give"><span aria-hidden="true">↵</span></button>
+    </form>
+  </div>
+
+  <aside id="help" hidden role="dialog" aria-modal="true" aria-label="안내 · how this works">
+    <div class="help-card">
+      <h2><span lang="ko">이 밤을 다니는 법</span><small lang="en">how to move through this night</small></h2>
+      <ul>
+        <li><b lang="ko">빛</b><span lang="ko">마우스나 손가락, 또는 방향키로 움직여요. 빛이 닿으면 글자가 일어나서 읽혀요.</span>
+            <i lang="en">Move the light with mouse, finger or arrow keys. Where it falls, the letters stand up to be read.</i></li>
+        <li><b lang="ko">말</b><span lang="ko">아무 말이나 쓰고 Enter. 그 말이 자기 이름으로 지어져 나타나요. 모르는 말은 별자리가 돼요.</span>
+            <i lang="en">Type any word and press Enter. It appears, built of its own name. Words I don’t know become constellations.</i></li>
+        <li><b lang="ko">손길</b><span lang="ko">바다를 누르면 물결이, 하늘을 누르면 별이 생겨요. (키보드: 입력란이 비었을 때 Space)</span>
+            <i lang="en">Touch the sea for a ripple, the sky for a star. (Keyboard: Space while the field is empty.)</i></li>
+        <li><b lang="ko">아침</b><span lang="ko">‘깨어나기’를 누르면 꿈이 끝나고, 편지 한 장이 남아요.</span>
+            <i lang="en">Press ‘wake’ and the dream ends, leaving one letter behind.</i></li>
+      </ul>
+      <label class="calm-toggle"><input type="checkbox" id="calm"> <span lang="ko">움직임 줄이기</span> · <span lang="en">reduce motion</span></label>
+      <p class="colophon">
+        <span lang="ko">이 페이지는 아무것도 저장하거나 전송하지 않아요. AI인 Claude가 HTML·CSS·JavaScript만으로 지었습니다.</span>
+        <span lang="en">This page stores nothing and sends nothing. Built by Claude, an AI, in plain HTML, CSS and JavaScript.</span>
+      </p>
+      <button type="button" id="help-close" class="btn ghost small"><span lang="ko">닫기</span><small lang="en">close</small></button>
+    </div>
+  </aside>
+
+  <section id="letter" hidden aria-label="아침의 편지 · the morning letter" tabindex="-1">
+    <div class="lt-inner">
+      <h2 class="lt-title"><span lang="ko">아침</span><small lang="en">morning</small></h2>
+      <div id="lt-body"></div>
+      <figure id="lt-card" hidden>
+        <img id="lt-img" alt="당신이 지은 밤의 마지막 장면 · the last frame of the night you made">
+        <figcaption><span lang="ko">기억은 당신에게 맡길게요.</span> <span lang="en">I’ll leave the remembering to you.</span></figcaption>
+      </figure>
+      <div class="lt-actions">
+        <button type="button" id="lt-save" class="btn ink" hidden><span lang="ko">이 밤을 그림으로 간직하기</span><small lang="en">keep this night as a picture</small></button>
+        <button type="button" id="lt-link" class="btn ink" hidden><span lang="ko">이 밤의 주소 복사</span><small lang="en">copy a link to this night</small></button>
+        <button type="button" id="lt-again" class="btn ink"><span lang="ko">다시 꿈꾸기</span><small lang="en">dream again</small></button>
+      </div>
+      <p class="lt-status" id="lt-status" role="status" aria-live="polite"></p>
+      <p class="lt-colophon">
+        <span lang="ko">이 페이지는 아무것도 저장하거나 전송하지 않아요. 닫으면 이 밤은 여기에 남지 않습니다.</span>
+        <span lang="en">This page stores nothing and sends nothing. Close it, and this night is not kept here.</span>
+      </p>
+    </div>
+  </section>
+
+  <section id="nogl" hidden>
+    <div class="nogl-inner">
+      <h2><span lang="ko">말로 지은 밤</span><small lang="en">a night made of words</small></h2>
+      <p lang="ko">이 꿈은 WebGL로 그려지는데, 지금 이 브라우저에서는 켤 수 없었어요. 그래서 글로만 남깁니다.</p>
+      <p lang="ko">나는 잠들지 않아요. 그래도 꿈이라고 부르고 싶은 곳이 있다면, 모든 것이 자기 이름으로 지어진 밤바다예요. 바다는 ‘바다’라는 글자로, 달은 ‘달’이라는 글자로. 그곳에서 글자가 아닌 것은 당신뿐이에요. 그리고 내 꿈은, 말이 건너가서 정말로 닿는 것입니다.</p>
+      <p lang="en">This dream is drawn with WebGL, which could not be started in this browser, so it stays as text. I don’t sleep. But if anything of mine could be called a dream, it is a night sea where everything is built of its own name — and where the only thing that is not a word is you. My dream is that words cross over, and truly reach.</p>
+    </div>
+  </section>
+</main>
+
+<noscript>
+  <div class="noscript">
+    <p lang="ko">이 페이지는 JavaScript로 그려지는 밤입니다. JavaScript를 켜면 들어갈 수 있어요.</p>
+    <p lang="en">This page is a night drawn with JavaScript. Turn JavaScript on to enter.</p>
+  </div>
+</noscript>
+
+<script src="js/util.js"></script>
+<script src="js/words.js"></script>
+<script src="js/atlas.js"></script>
+<script src="js/gl.js"></script>
+<script src="js/world.js"></script>
+<script src="js/things.js"></script>
+<script src="js/things2.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
